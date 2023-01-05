@@ -11,7 +11,7 @@
           getKey(left).localeCompare(getKey(right)));
 
       (async () => {
-        const response = await fetch('https://api.github.com/repos/dgoffredo/coverage-reports/contents/?ref=gh-pages');
+        const response = await fetch('https://api.github.com/repos/DataDog/dd-trace-cpp-coverage/contents/?ref=gh-pages');
         const data = await response.json();
         const files = [];
 

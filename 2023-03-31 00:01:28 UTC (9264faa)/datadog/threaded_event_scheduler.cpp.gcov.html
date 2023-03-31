@@ -31,13 +31,13 @@
             <td class="headerValue">filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">53</td>
+            <td class="headerCovTableEntry">51</td>
             <td class="headerCovTableEntry">65</td>
-            <td class="headerCovTableEntryMed">81.5 %</td>
+            <td class="headerCovTableEntryMed">78.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-03-31 00:03:07</td>
+            <td class="headerValue">2023-03-31 00:05:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -129,26 +129,26 @@
 <a name="67"><span class="lineNum">      67 </span><span class="lineCov">        180 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="68"><span class="lineNum">      68 </span>            : </a>
 <a name="69"><span class="lineNum">      69 </span>            :   for (;;) {</a>
-<a name="70"><span class="lineNum">      70 </span><span class="lineCov">        182 :     schedule_or_shutdown_.wait(</span></a>
-<a name="71"><span class="lineNum">      71 </span><span class="lineCov">        358 :         lock, [this]() { return shutting_down_ || !upcoming_.empty(); });</span></a>
-<a name="72"><span class="lineNum">      72 </span><span class="lineCov">        182 :     if (shutting_down_) {</span></a>
-<a name="73"><span class="lineNum">      73 </span><span class="lineCov">        168 :       return;</span></a>
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">        181 :     schedule_or_shutdown_.wait(</span></a>
+<a name="71"><span class="lineNum">      71 </span><span class="lineCov">        357 :         lock, [this]() { return shutting_down_ || !upcoming_.empty(); });</span></a>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">        181 :     if (shutting_down_) {</span></a>
+<a name="73"><span class="lineNum">      73 </span><span class="lineCov">        167 :       return;</span></a>
 <a name="74"><span class="lineNum">      74 </span>            :     }</a>
 <a name="75"><span class="lineNum">      75 </span>            : </a>
 <a name="76"><span class="lineNum">      76 </span><span class="lineCov">         14 :     current_ = upcoming_.top();</span></a>
 <a name="77"><span class="lineNum">      77 </span>            : </a>
 <a name="78"><span class="lineNum">      78 </span><span class="lineCov">         14 :     if (current_.config-&gt;cancelled) {</span></a>
-<a name="79"><span class="lineNum">      79 </span><span class="lineCov">          1 :       upcoming_.pop();</span></a>
-<a name="80"><span class="lineNum">      80 </span><span class="lineCov">          1 :       continue;</span></a>
+<a name="79"><span class="lineNum">      79 </span><span class="lineNoCov">          0 :       upcoming_.pop();</span></a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineNoCov">          0 :       continue;</span></a>
 <a name="81"><span class="lineNum">      81 </span>            :     }</a>
 <a name="82"><span class="lineNum">      82 </span>            : </a>
 <a name="83"><span class="lineNum">      83 </span>            :     const bool changed =</a>
-<a name="84"><span class="lineNum">      84 </span><span class="lineCov">         13 :         schedule_or_shutdown_.wait_until(lock, current_.when, [this]() {</span></a>
-<a name="85"><span class="lineNum">      85 </span><span class="lineCov">         26 :           return shutting_down_ || upcoming_.top().config != current_.config;</span></a>
+<a name="84"><span class="lineNum">      84 </span><span class="lineCov">         14 :         schedule_or_shutdown_.wait_until(lock, current_.when, [this]() {</span></a>
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">         28 :           return shutting_down_ || upcoming_.top().config != current_.config;</span></a>
 <a name="86"><span class="lineNum">      86 </span>            :         });</a>
 <a name="87"><span class="lineNum">      87 </span>            : </a>
-<a name="88"><span class="lineNum">      88 </span><span class="lineCov">         13 :     if (shutting_down_) {</span></a>
-<a name="89"><span class="lineNum">      89 </span><span class="lineCov">         12 :       return;</span></a>
+<a name="88"><span class="lineNum">      88 </span><span class="lineCov">         14 :     if (shutting_down_) {</span></a>
+<a name="89"><span class="lineNum">      89 </span><span class="lineCov">         13 :       return;</span></a>
 <a name="90"><span class="lineNum">      90 </span>            :     }</a>
 <a name="91"><span class="lineNum">      91 </span>            : </a>
 <a name="92"><span class="lineNum">      92 </span><span class="lineCov">          1 :     if (changed) {</span></a>
@@ -170,7 +170,7 @@
 <a name="108"><span class="lineNum">     108 </span><span class="lineNoCov">          0 :     lock.lock();</span></a>
 <a name="109"><span class="lineNum">     109 </span><span class="lineNoCov">          0 :     running_current_ = false;</span></a>
 <a name="110"><span class="lineNum">     110 </span><span class="lineNoCov">          0 :     current_done_.notify_all();</span></a>
-<a name="111"><span class="lineNum">     111 </span><span class="lineCov">          2 :   }</span></a>
+<a name="111"><span class="lineNum">     111 </span><span class="lineCov">          1 :   }</span></a>
 <a name="112"><span class="lineNum">     112 </span><span class="lineCov">        180 : }</span></a>
 <a name="113"><span class="lineNum">     113 </span>            : </a>
 <a name="114"><span class="lineNum">     114 </span>            : }  // namespace tracing</a>

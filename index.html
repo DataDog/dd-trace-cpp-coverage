@@ -5,10 +5,27 @@
   </head>
   <body>
     <h1>Code Coverage for dd-trace-cpp</h1>
+    <style>
+    a {
+      text-decoration: none;
+    }
+    </style>
     <script>
       const sortByStringKey = (array, getKey) =>
         array.sort((left, right) =>
           getKey(left).localeCompare(getKey(right)));
+
+      function parse_name(name) {
+        // name is like: 2023-09-20T12:10:14.000Z-45c3c05-lines:2651:2728:97.2-funcs:510:534:95.5-david.goffredo%2fprettier-coverage
+        const regex = /^(....-..-..T..:..:..\....Z)-(.......)-lines:(\d+):(\d+):([0-9.]+)-funcs:(\d+):(\d+):([0-9.]+)-(.*)$/;
+
+        let [date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch] = name.match(regex).slice(1);
+        
+        date = new Date(date);
+        branch = decodeURIComponent(branch);
+        
+        return {name, date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch};
+      }
 
       (async () => {
         const response = await fetch('https://api.github.com/repos/DataDog/dd-trace-cpp-coverage/contents/?ref=gh-pages');
@@ -20,26 +37,55 @@
         for (let file of data) {
           if (ignore(file)) continue;
           files.push({
-            path: file.path,
             name: file.name,
+            path: file.path,
+            ...parse_name(file.name)
           });
-          console.log(file);
+          // console.log(file);
         }
 
         sortByStringKey(files, file => file.name);
         files.reverse();
 
-        const ul = document.createElement('ul');
+        const table = document.createElement('table');
+        table.setAttribute('cellspacing', '10px');
+        const tr = document.createElement('tr');
+        ['Commit Date', 'Commit', 'Branch', 'Coverage'].forEach(heading => {
+          const th = document.createElement('th');
+          th.textContent = heading;
+          tr.appendChild(th);
+        });
+        table.appendChild(tr);
+
         for (let file of files) {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
+          const tr = document.createElement('tr');
+          
+          let td = document.createElement('td');
+          td.textContent = file.date.toISOString().replace('T', ' ').replace('Z', ' UTC').replace(/\.\d+/, '');
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          let a = document.createElement('a');
+          a.setAttribute('href', `https://github.com/DataDog/dd-trace-cpp/tree/${file.commit}`);
+          a.textContent = file.commit;
+          td.appendChild(a);
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          td.textContent = file.branch;
+          tr.appendChild(td);
+
+          td = document.createElement('td');
+          a = document.createElement('a');
           a.setAttribute('href', file.path);
-          a.textContent = file.name
-          li.appendChild(a);
-          ul.appendChild(li);
+          a.textContent = `${file.lines_percent}% lines, ${file.funcs_percent}% functions`;
+          td.appendChild(a);
+          tr.appendChild(td);
+
+          table.appendChild(tr);
         }
 
-        document.getElementsByTagName('body')[0].appendChild(ul);
+        document.getElementsByTagName('body')[0].appendChild(table);
       })()
     </script>
   <body>

@@ -25,12 +25,28 @@
         // 404 in GitHub pages (the shame).
         const regex = /^(....-..-..T..:..:..\....Z)-(.......)-lines:(\d+):(\d+):([0-9.]+)-funcs:(\d+):(\d+):([0-9.]+)-(.*)$/;
 
-        let [date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch] = name.match(regex).slice(1);
+        const match = name.match(regex);
+        if (match === null) {
+          return {
+            date: {toISOString: () => 'unknown'},
+            commit: 'unknown',
+            lines_numerator: 'unknown',
+            lines_denominator: 'unknown',
+            lines_percent: 'unknown',
+            funcs_numerator: 'unknown',
+            funcs_denominator: 'unknown',
+            funcs_percent: 'unknown',
+            branch: 'unknown'
+          };
+
+        }
+
+        let [date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch] = match.slice(1);
 
         date = new Date(date);
         branch = decodeHex(branch);
 
-        return {name, date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch};
+        return {date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch};
       }
 
       (async () => {

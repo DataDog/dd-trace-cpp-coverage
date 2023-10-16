@@ -15,15 +15,21 @@
         array.sort((left, right) =>
           getKey(left).localeCompare(getKey(right)));
 
+      const decodeHex = hex_string => hex_string.replaceAll(/../g, hex_byte => decodeURIComponent(`%${hex_byte}`))
+
       function parse_name(name) {
-        // name is like: 2023-09-20T12:10:14.000Z-45c3c05-lines:2651:2728:97.2-funcs:510:534:95.5-david.goffredo%2fprettier-coverage
+        // name is like: 2023-09-20T12:10:14.000Z-45c3c05-lines:2651:2728:97.2-funcs:510:534:95.5-64617669642e676f66667265646f2f70726574746965722d636f766572616765
+        // The ugly part at the end is the hex encoding of
+        // "david.goffredo/prettier-coverage".
+        // I couldn't use URL encoding because URL-encoded forward slashes cause
+        // 404 in GitHub pages (the shame).
         const regex = /^(....-..-..T..:..:..\....Z)-(.......)-lines:(\d+):(\d+):([0-9.]+)-funcs:(\d+):(\d+):([0-9.]+)-(.*)$/;
 
         let [date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch] = name.match(regex).slice(1);
-        
+
         date = new Date(date);
-        branch = decodeURIComponent(branch);
-        
+        branch = decodeHex(branch);
+
         return {name, date, commit, lines_numerator, lines_denominator, lines_percent, funcs_numerator, funcs_denominator, funcs_percent, branch};
       }
 
@@ -59,7 +65,7 @@
 
         for (let file of files) {
           const tr = document.createElement('tr');
-          
+
           let td = document.createElement('td');
           td.textContent = file.date.toISOString().replace('T', ' ').replace('Z', ' UTC').replace(/\.\d+/, '');
           tr.appendChild(td);

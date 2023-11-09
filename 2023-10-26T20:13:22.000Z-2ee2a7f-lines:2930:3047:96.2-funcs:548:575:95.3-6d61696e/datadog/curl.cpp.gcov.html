@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-10-26 20:15:43</td>
+            <td class="headerValue">2023-11-09 05:23:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">58</td>
@@ -456,7 +456,7 @@
 <a name="394"><span class="lineNum">     394 </span><span class="lineCov">         17 : void CurlImpl::drain(std::chrono::steady_clock::time_point deadline) {</span></a>
 <a name="395"><span class="lineNum">     395 </span><span class="lineCov">         17 :   std::unique_lock&lt;std::mutex&gt; lock(mutex_);</span></a>
 <a name="396"><span class="lineNum">     396 </span><span class="lineCov">         17 :   no_requests_.wait_until(lock, deadline, [this]() {</span></a>
-<a name="397"><span class="lineNum">     397 </span><span class="lineCov">         34 :     return num_active_handles_ == 0 &amp;&amp; new_handles_.empty();</span></a>
+<a name="397"><span class="lineNum">     397 </span><span class="lineCov">         33 :     return num_active_handles_ == 0 &amp;&amp; new_handles_.empty();</span></a>
 <a name="398"><span class="lineNum">     398 </span>            :   });</a>
 <a name="399"><span class="lineNum">     399 </span><span class="lineCov">         17 : }</span></a>
 <a name="400"><span class="lineNum">     400 </span>            : </a>
@@ -515,12 +515,12 @@
 <a name="453"><span class="lineNum">     453 </span><span class="lineCov">         36 :   return result;</span></a>
 <a name="454"><span class="lineNum">     454 </span>            : }</a>
 <a name="455"><span class="lineNum">     455 </span>            : </a>
-<a name="456"><span class="lineNum">     456 </span><span class="lineCov">        954 : CURLMcode CurlImpl::log_on_error(CURLMcode result) {</span></a>
-<a name="457"><span class="lineNum">     457 </span><span class="lineCov">        954 :   if (result != CURLM_OK) {</span></a>
+<a name="456"><span class="lineNum">     456 </span><span class="lineCov">        955 : CURLMcode CurlImpl::log_on_error(CURLMcode result) {</span></a>
+<a name="457"><span class="lineNum">     457 </span><span class="lineCov">        955 :   if (result != CURLM_OK) {</span></a>
 <a name="458"><span class="lineNum">     458 </span><span class="lineNoCov">          0 :     logger_-&gt;log_error(</span></a>
 <a name="459"><span class="lineNum">     459 </span><span class="lineNoCov">          0 :         Error{Error::CURL_HTTP_CLIENT_ERROR, curl_.multi_strerror(result)});</span></a>
 <a name="460"><span class="lineNum">     460 </span>            :   }</a>
-<a name="461"><span class="lineNum">     461 </span><span class="lineCov">        954 :   return result;</span></a>
+<a name="461"><span class="lineNum">     461 </span><span class="lineCov">        955 :   return result;</span></a>
 <a name="462"><span class="lineNum">     462 </span>            : }</a>
 <a name="463"><span class="lineNum">     463 </span>            : </a>
 <a name="464"><span class="lineNum">     464 </span><span class="lineCov">        198 : void CurlImpl::run() {</span></a>

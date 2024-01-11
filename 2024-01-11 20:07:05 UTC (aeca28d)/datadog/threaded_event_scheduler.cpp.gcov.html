@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-01-11 20:09:16</td>
+            <td class="headerValue">2024-01-11 20:10:30</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -130,7 +130,7 @@
 <a name="68"><span class="lineNum">      68 </span>            : </a>
 <a name="69"><span class="lineNum">      69 </span>            :   for (;;) {</a>
 <a name="70"><span class="lineNum">      70 </span><span class="lineCov">        183 :     schedule_or_shutdown_.wait(</span></a>
-<a name="71"><span class="lineNum">      71 </span><span class="lineCov">        355 :         lock, [this]() { return shutting_down_ || !upcoming_.empty(); });</span></a>
+<a name="71"><span class="lineNum">      71 </span><span class="lineCov">        359 :         lock, [this]() { return shutting_down_ || !upcoming_.empty(); });</span></a>
 <a name="72"><span class="lineNum">      72 </span><span class="lineCov">        183 :     if (shutting_down_) {</span></a>
 <a name="73"><span class="lineNum">      73 </span><span class="lineCov">        169 :       return;</span></a>
 <a name="74"><span class="lineNum">      74 </span>            :     }</a>

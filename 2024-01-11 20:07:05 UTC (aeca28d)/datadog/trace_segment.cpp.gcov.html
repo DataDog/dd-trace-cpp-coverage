@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-01-11 20:09:16</td>
+            <td class="headerValue">2024-01-11 20:10:30</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">20</td>
@@ -251,11 +251,11 @@
 <a name="189"><span class="lineNum">     189 </span>            :   // and then send the spans to the collector.</a>
 <a name="190"><span class="lineNum">     190 </span><span class="lineCov">      82947 :   if (sampling_decision_-&gt;priority &lt;= 0) {</span></a>
 <a name="191"><span class="lineNum">     191 </span>            :     // Span sampling happens when the trace is dropped.</a>
-<a name="192"><span class="lineNum">     192 </span><span class="lineCov">      74426 :     for (const auto&amp; span_ptr : spans_) {</span></a>
-<a name="193"><span class="lineNum">     193 </span><span class="lineCov">      37222 :       SpanData&amp; span = *span_ptr;</span></a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">      37222 :       auto* rule = span_sampler_-&gt;match(span);</span></a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">      37222 :       if (!rule) {</span></a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">      36110 :         continue;</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">      74886 :     for (const auto&amp; span_ptr : spans_) {</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">      37452 :       SpanData&amp; span = *span_ptr;</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">      37452 :       auto* rule = span_sampler_-&gt;match(span);</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">      37452 :       if (!rule) {</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">      36340 :         continue;</span></a>
 <a name="197"><span class="lineNum">     197 </span>            :       }</a>
 <a name="198"><span class="lineNum">     198 </span><span class="lineCov">       2012 :       const SamplingDecision decision = rule-&gt;decide(span);</span></a>
 <a name="199"><span class="lineNum">     199 </span><span class="lineCov">       2012 :       if (decision.priority &lt;= 0) {</span></a>
@@ -290,8 +290,8 @@
 <a name="228"><span class="lineNum">     228 </span><span class="lineCov">      52351 :       local_root.numeric_tags[tags::internal::rule_sample_rate] =</span></a>
 <a name="229"><span class="lineNum">     229 </span><span class="lineCov">      52351 :           *decision.configured_rate;</span></a>
 <a name="230"><span class="lineNum">     230 </span><span class="lineCov">      52351 :       if (decision.limiter_effective_rate) {</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">      25362 :         local_root.numeric_tags[tags::internal::rule_limiter_sample_rate] =</span></a>
-<a name="232"><span class="lineNum">     232 </span><span class="lineCov">      25362 :             *decision.limiter_effective_rate;</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">      25264 :         local_root.numeric_tags[tags::internal::rule_limiter_sample_rate] =</span></a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">      25264 :             *decision.limiter_effective_rate;</span></a>
 <a name="233"><span class="lineNum">     233 </span>            :       }</a>
 <a name="234"><span class="lineNum">     234 </span>            :     }</a>
 <a name="235"><span class="lineNum">     235 </span>            :   }</a>
@@ -366,20 +366,20 @@
 <a name="304"><span class="lineNum">     304 </span>            :       });</a>
 <a name="305"><span class="lineNum">     305 </span>            : </a>
 <a name="306"><span class="lineNum">     306 </span><span class="lineCov">      82921 :   if (sampling_decision_-&gt;priority &lt;= 0) {</span></a>
-<a name="307"><span class="lineNum">     307 </span><span class="lineCov">      37173 :     if (found != trace_tags_.end()) {</span></a>
+<a name="307"><span class="lineNum">     307 </span><span class="lineCov">      37403 :     if (found != trace_tags_.end()) {</span></a>
 <a name="308"><span class="lineNum">     308 </span><span class="lineCov">         18 :       trace_tags_.erase(found);</span></a>
 <a name="309"><span class="lineNum">     309 </span>            :     }</a>
-<a name="310"><span class="lineNum">     310 </span><span class="lineCov">      37173 :     return;</span></a>
+<a name="310"><span class="lineNum">     310 </span><span class="lineCov">      37403 :     return;</span></a>
 <a name="311"><span class="lineNum">     311 </span>            :   }</a>
 <a name="312"><span class="lineNum">     312 </span>            : </a>
 <a name="313"><span class="lineNum">     313 </span>            :   // Note that `value` is moved-from below (in case you refactor this code).</a>
-<a name="314"><span class="lineNum">     314 </span><span class="lineCov">      45748 :   auto value = &quot;-&quot; + std::to_string(*sampling_decision_-&gt;mechanism);</span></a>
-<a name="315"><span class="lineNum">     315 </span><span class="lineCov">      45748 :   if (found == trace_tags_.end()) {</span></a>
-<a name="316"><span class="lineNum">     316 </span><span class="lineCov">      45708 :     trace_tags_.emplace_back(tags::internal::decision_maker, std::move(value));</span></a>
+<a name="314"><span class="lineNum">     314 </span><span class="lineCov">      45518 :   auto value = &quot;-&quot; + std::to_string(*sampling_decision_-&gt;mechanism);</span></a>
+<a name="315"><span class="lineNum">     315 </span><span class="lineCov">      45518 :   if (found == trace_tags_.end()) {</span></a>
+<a name="316"><span class="lineNum">     316 </span><span class="lineCov">      45478 :     trace_tags_.emplace_back(tags::internal::decision_maker, std::move(value));</span></a>
 <a name="317"><span class="lineNum">     317 </span>            :   } else {</a>
 <a name="318"><span class="lineNum">     318 </span><span class="lineCov">         40 :     found-&gt;second = std::move(value);</span></a>
 <a name="319"><span class="lineNum">     319 </span>            :   }</a>
-<a name="320"><span class="lineNum">     320 </span><span class="lineCov">      45748 : }</span></a>
+<a name="320"><span class="lineNum">     320 </span><span class="lineCov">      45518 : }</span></a>
 <a name="321"><span class="lineNum">     321 </span>            : </a>
 <a name="322"><span class="lineNum">     322 </span><span class="lineCov">         76 : bool TraceSegment::inject(DictWriter&amp; writer, const SpanData&amp; span) {</span></a>
 <a name="323"><span class="lineNum">     323 </span><span class="lineCov">         76 :   return inject(writer, span, InjectionOptions{});</span></a>
